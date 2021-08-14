@@ -16,8 +16,8 @@ function M.setup(config)
 
   theme.base = {
     Comment = { fg = c.comment, style = config.commentStyle }, -- any comment
-    ColorColumn = { bg = c.bg_visual }, -- used for the columns set with 'colorcolumn'
-    Conceal = { fg = c.dark3 }, -- placeholder characters substituted for concealed text (see 'conceallevel')
+    ColorColumn = { bg = c.black }, -- used for the columns set with 'colorcolumn'
+    Conceal = { fg = c.dark5 }, -- placeholder characters substituted for concealed text (see 'conceallevel')
     Cursor = { fg = c.bg, bg = c.fg }, -- character under the cursor
     lCursor = { fg = c.bg, bg = c.fg }, -- the character under the cursor when |language-mapping| is used (see 'guicursor')
     CursorIM = { fg = c.bg, bg = c.fg }, -- like Cursor, but used when in IME mode |CursorIM|
@@ -174,6 +174,7 @@ function M.setup(config)
     LspDiagnosticsUnderlineHint = { style = "undercurl", sp = c.hint }, -- Used to underline "Hint" diagnostics
 
     LspSignatureActiveParameter = { fg = c.orange },
+    LspCodeLens = { fg = c.comment },
 
     -- LspDiagnosticsFloatingError         = { }, -- Used to color "Error" diagnostic messages in diagnostics float
     -- LspDiagnosticsFloatingWarning       = { }, -- Used to color "Warning" diagnostic messages in diagnostics float
@@ -184,6 +185,9 @@ function M.setup(config)
     -- LspDiagnosticsSignWarning           = { }, -- Used for "Warning" signs in sign column
     -- LspDiagnosticsSignInformation       = { }, -- Used for "Information" signs in sign column
     -- LspDiagnosticsSignHint              = { }, -- Used for "Hint" signs in sign column
+
+    ALEErrorSign = { fg = c.error },
+    ALEWarningSign = { fg = c.warning },
   }
 
   theme.plugins = {
@@ -408,6 +412,8 @@ function M.setup(config)
     LightspeedGreyWash = { fg = c.dark3 },
   }
 
+  theme.defer = {}
+
   if config.hideInactiveStatusline then
     local inactive = { style = "underline", bg = c.bg, fg = c.bg, sp = c.border }
 
@@ -416,7 +422,7 @@ function M.setup(config)
 
     -- LuaLine
     for _, section in ipairs({ "a", "b", "c" }) do
-      theme.plugins["lualine_" .. section .. "_inactive"] = inactive
+      theme.defer["lualine_" .. section .. "_inactive"] = inactive
     end
   end
 
